@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>GitHub Issues</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script>
+  $(function(){
+
+    $('#clickbtn').keyup(function(e){
+      let username = $('#clickbtn')[0].value;
+      if(username){
+        $.ajax({
+          url : 'https://api.github.com/users/'+username+'/repos',
+          data: {
+            client_id : '7075b480e71a01f98c59',
+            client_secret : '254c4e46c6709ad58fd50e525def15ba624e5637'
+          },
+          success : function(json){
+            $('#details').html('');
+            for(var i = 0; i < json.length; i++){
+              $("#details").append("<b>"+json[i].name+"<br/></b>");
+
+            }
+          }
+        });
+      }
+      else{
+        alert("enter a name first");
+      }
+    });
+  });
+
+</script>
+</head>
+<body>
+  ​
+  <div class="container">
+    <div class="jumbotron">
+      <h1 style="text-align:center">Get the repos of any user</h1>
+    </div>
+    <p><input class="col-sm-8 col-sm-offset-2" type="text" id="clickbtn" value="" placeholder="Enter the name"></p>
+    <div id="details" style="padding-top:10%; padding-left:20%;"></div>
+  </div>
+  ​
+</body>
+</html>
+​
